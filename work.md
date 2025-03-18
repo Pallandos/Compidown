@@ -57,4 +57,24 @@ Une REGEX python qui décrit ce lexème :
 
     "(`){3}[a-zA-Z]*\n(.*\n)*(`){3}"
 
+Il faut néanmoins décrire l'ouverture du bloc : 
+
+    "(`){3}[a-zA-Z]*"
+
+et sa fermeture : 
+
+    "(`){3}"
+
 ##### HTML blocks
+
+Les blocs HTML sont des éléments qui seront traités comme du HTML et donc PAS comme du Markdown. Il existe de nombreux types de blocs HTML et sont décrits ci après : 
+
+1. **start** : l'un de ces blocs : `<script`, `<pre` ou `<style` suivi d'espaces éventuels, le tout fermé par `>`
+    
+    **end**  : le bloc de fermeture correspondant, à savoir `</script>`, `</pre>` ou `</style>`.
+2. 
+
+##### Paragraphes
+
+
+Les **paragraphes** sont tous les blocs qui ne peuvent être interprétés comme autre chose. Le seul moyen de terminer un paragraphe est de rajouter une ligne vide. Rajouter plus d'une ligne vide n'a aucun effet.
