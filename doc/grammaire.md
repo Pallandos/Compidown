@@ -4,6 +4,8 @@ Ce document décrit la grammaire du GitHub Flavored Markdown.
 
 Pour référence, la documentation utilisée est lisible [ici](https://github.github.com/gfm/).
 
+> Dans la grammaire ci dessous, je ne tient pas compte des espaces / retours à la ligne. Je ne les prendrais en compte que dans la phase d'analyse lexicale avec les REGEX, sinon cela ne ferait que rendre la grammaire peu digeste.
+
 ```ebnf
 
 <document>      := { <block> }

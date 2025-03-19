@@ -15,6 +15,44 @@ La première étape dans le développement du lexer est de réaliser une liste *
 
 Suit ici une liste qui se veut exhaustive des lexèmes de Markdown. Il est important de considérer que les éléments en Markdown peuvent être séparés en 2 catégories : **blocks** et **inline**. Un *block* peut être peut dans un cas contenir d'autres blocs : il est dit **container**, ou bien être **terminal**. 
 
+Les tableaux suivants décrivent tous les lexèmes qui sont utilisés dans notre compilateur. Les explications sont juste après les tableaux.
+
+| **_Leaf blocks_** 	|      Token      	| REGEX                                                         	| une ligne ? 	|
+|:-----------------:	|:---------------:	|---------------------------------------------------------------	|:-----------:	|
+|    theme break    	|   THEME_BREAK   	| `"( ){0,3}(-{3}\|_{3}\|\*{3})"`                               	|     oui     	|
+|       titre       	|      TITLE      	| `"(#){1,6}( )(.)*"`                                           	|     oui     	|
+|    code indenté   	| INDENT_CODE_OPN 	| ouverture :  `"(   )( )*.*"`                                  	|     non     	|
+|                   	| INDENT_CODE_CL  	| fermeture :  `"([^ ].*)\|( [^ ].*)\|(  [^ ].*)\|(   [^ ].*)"` 	|             	|
+|    code en bloc   	| FENCED_CODE_OPN 	| ouverture : ```"(`){3}[a-zA-Z]*"```                           	|     non     	|
+|                   	| FENCED_CODE_CL  	| fermeture : ```"(`){3}"```                                    	|             	|
+|     bloc HTML     	|    HTML_BLOC    	| *trop compliqué*                                              	|     non     	|
+|     paragraphe    	|  PARAGRAPH_OPN  	| ouverture : `"( ){,3}[^ ](.*\n)"`                             	|     non     	|
+|                   	| PARAGRAPH_CL    	| fermeture : `"\s*"`                                           	|             	|
+|     ligne vide    	|    BLANK_LINE   	| `"\s*"`                                                       	|     oui     	|
+|      tableau      	|      TABLE      	| *trop compliqué*                                              	|     non     	|
+
+| **_Containers blocks_** 	|   Token   	| REGEX              	| une ligne ? 	|
+|:-----------------------:	|:---------:	|--------------------	|:-----------:	|
+|          quote          	|   QUOTE   	| `"( ){,3}>( )?.*"` 	|     non     	|
+|          liste          	|    LIST   	| *complexe*         	|     oui     	|
+|      item de liste      	| LIST_ITEM 	| *complexe*         	|     oui     	|
+
+| **_Inlines_** 	| Token  	| REGEX 	|
+|---------------	|--------	|-------	|
+| gras          	| BOLT   	|       	|
+| italique      	| ITALIC 	|       	|
+| emphase code  	| EMPH   	|       	|
+| liens         	| LINK   	|       	|
+| image         	| IMAGE  	|       	|
+
+| **_Inlines_** 	|  Token 	| REGEX                      	|
+|:-------------:	|:------:	|----------------------------	|
+|      gras     	|  BOLT  	| `"(\*\*)( )?.*( )?(\*\*)"` 	|
+|    italique   	| ITALIC 	| `"(\*)( )?.*( )?(\*)"`     	|
+|  emphase code 	|  EMPH  	| ```"(`)( )?.*( )?(`)"```   	|
+|     liens     	|  LINK  	| `"\[.*\]\(.*\)"`           	|
+|     image     	|  IMAGE 	| `"!\[.*\]\(.*\)"`          	|
+
 ### Les **blocks**
 
 Comme dit plus haut, les blocs peuvent dans un cas contenir d'autres blocs, dans d'autres cas non. 
@@ -112,3 +150,7 @@ Un bloc container peut contenir d'autres blocs. Il n'y a que 2 types de containe
 ##### Citations
 
 Une citation est un container qui est défini par un `>` au début de chaque ligne qui le compose. On ne peut pas ommettre ce symbole sinon on sort de la citation. On peut l'indenter de au maximum 3 espaces (sinon on tombe dans un bloc de code). 
+
+REGEX : 
+
+    "( ){,3}>( )?.*"
