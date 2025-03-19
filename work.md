@@ -9,7 +9,7 @@ Comme dans le cours, je suivrais les étapes suivantes :
 
 # Lexer
 
-La première étape dans le développement du lexer est de réaliser une liste **exhaustive** des lexèmes existants. Puis on écrira des expressions rationelles correspondants à ces lexèmes. 
+La première étape dans le développement du lexer est de réaliser une liste **exhaustive** des lexèmes existants. Puisqu'il n'est pas raisonable de directement tout écrire, on commencera par les expressions les plus utiles, puis on ajoutera au fur et à mesure des lexèmes. Puis on écrira des expressions rationelles correspondants à ces lexèmes. 
 
 ## Lexèmes
 
@@ -49,6 +49,15 @@ Une REGEX python qui décrit ce lexème est :
 
 Un bloc de code indenté est composé d'une indentation (ou plus) suivi du texte.
 
+REGEX d'ouverture :
+
+    "(   )( )*.*"
+
+REGEX de fermeture :
+
+    "([^ ].*)|( [^ ].*)|(  [^ ].*)|(   [^ ].*)"
+
+
 ##### Fenced code block
 
 Un **fenced code block** est un bloc de code qui s'étire sur plusieurs lignes. Il commence par au moins 3 `` ` `` consécutifs. Il se termine lorsque le même nombre de *ticks* est placé sur une ligne. On peut, dans certains cas, placer des caractères après les premiers *ticks*, pour indiquer le langage. 
@@ -72,9 +81,34 @@ Les blocs HTML sont des éléments qui seront traités comme du HTML et donc PAS
 1. **start** : l'un de ces blocs : `<script`, `<pre` ou `<style` suivi d'espaces éventuels, le tout fermé par `>`
     
     **end**  : le bloc de fermeture correspondant, à savoir `</script>`, `</pre>` ou `</style>`.
-2. 
+2. **start** : `<!--`
+   
+   **end** : `-->`
+3. **start** : `<?`
+   
+   **end** : `?>`
 
 ##### Paragraphes
 
 
 Les **paragraphes** sont tous les blocs qui ne peuvent être interprétés comme autre chose. Le seul moyen de terminer un paragraphe est de rajouter une ligne vide. Rajouter plus d'une ligne vide n'a aucun effet.
+
+Ouverture : 
+
+    "( ){,3}[^ ](.*\n)"
+
+Fermeture : 
+
+    "\s*"
+
+##### Tableaux
+
+? 
+
+#### Bloc container
+
+Un bloc container peut contenir d'autres blocs. Il n'y a que 2 types de containers en markdown : les listes et les citations.
+
+##### Citations
+
+Une citation est un container qui est défini par un `>` au début de chaque ligne qui le compose. On ne peut pas ommettre ce symbole sinon on sort de la citation. On peut l'indenter de au maximum 3 espaces (sinon on tombe dans un bloc de code). 
