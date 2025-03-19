@@ -31,19 +31,15 @@ Les tableaux suivants décrivent tous les lexèmes qui sont utilisés dans notre
 |     ligne vide    	|    BLANK_LINE   	| `"\s*"`                                                       	|     oui     	|
 |      tableau      	|      TABLE      	| *trop compliqué*                                              	|     non     	|
 
+===
+
 | **_Containers blocks_** 	|   Token   	| REGEX              	| une ligne ? 	|
 |:-----------------------:	|:---------:	|--------------------	|:-----------:	|
 |          quote          	|   QUOTE   	| `"( ){,3}>( )?.*"` 	|     non     	|
 |          liste          	|    LIST   	| *complexe*         	|     oui     	|
 |      item de liste      	| LIST_ITEM 	| *complexe*         	|     oui     	|
 
-| **_Inlines_** 	| Token  	| REGEX 	|
-|---------------	|--------	|-------	|
-| gras          	| BOLT   	|       	|
-| italique      	| ITALIC 	|       	|
-| emphase code  	| EMPH   	|       	|
-| liens         	| LINK   	|       	|
-| image         	| IMAGE  	|       	|
+===
 
 | **_Inlines_** 	|  Token 	| REGEX                      	|
 |:-------------:	|:------:	|----------------------------	|
