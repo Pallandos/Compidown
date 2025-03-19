@@ -4,7 +4,7 @@ Ce document décrit la grammaire du GitHub Flavored Markdown.
 
 Pour référence, la documentation utilisée est lisible [ici](https://github.github.com/gfm/).
 
-```bnf
+```ebnf
 
 <document>      := { <block> }
 
