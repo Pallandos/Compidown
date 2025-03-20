@@ -10,5 +10,5 @@ La grammaire que j'ai utilisée pour mon projet est lisible [ici](./doc/grammair
 
 ## Déroulement 
 
-Pour la réalisation du projet, j'ai travaillé selon ce schéma : [déroulement](work.md)
+Pour la réalisation du projet, j'ai travaillé selon ce schéma : [déroulement](./doc/work.md)
 
