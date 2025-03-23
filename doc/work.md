@@ -33,11 +33,13 @@ Les tableaux suivants décrivent tous les lexèmes qui sont utilisés dans notre
 
 ***
 
-| **_Containers blocks_** 	|   Token   	| REGEX              	| une ligne ? 	|
-|:-----------------------:	|:---------:	|--------------------	|:-----------:	|
-|          quote          	|   QUOTE   	| `"( ){,3}>( )?.*"` 	|     non     	|
-|          liste          	|    LIST   	| *complexe*         	|     oui     	|
-|      item de liste      	| LIST_ITEM 	| *complexe*         	|     oui     	|
+| **_Containers blocks_** 	|     Token    	| REGEX                       	| une ligne ? 	|
+|:-----------------------:	|:------------:	|-----------------------------	|:-----------:	|
+|          quote          	|     QUOTE    	| `"( ){,3}>( )?.*"`          	|     non     	|
+|          liste          	|     LIST     	| *complexe*                  	|     oui     	|
+|      item de liste      	|   LIST_ITEM  	| *complexe*                  	|     oui     	|
+|                         	| ORDERED_LIST 	| `^( )*[0-9][\.\|\)]( )+.*$` 	| oui         	|
+|                         	| BULLET_LIST  	| `^( )*[\+\|\-\|\.]( )+.*$`  	| oui         	|
 
 ***
 

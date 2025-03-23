@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"log"
 	"os"
+
+	"github.com/Pallandos/Compidown/pkg/lexer"
 )
 
 func main() {
@@ -20,7 +22,9 @@ func main() {
 	// lecture
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
-		fmt.Println(scanner.Text())
+		retour := lexer.LexerInline(scanner.Text())
+
+		fmt.Println(retour)
 	}
 
 	// gestion des erreurs de lecture
