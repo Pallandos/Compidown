@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"encoding/json"
 	"fmt"
 	"log"
 	"os"
@@ -24,7 +25,14 @@ func main() {
 	for scanner.Scan() {
 		retour := lexer.LexerInline(scanner.Text())
 
-		fmt.Println(retour)
+		json, err := json.Marshal(retour)
+
+		if err != nil {
+			log.Fatalf("Erreur de conversion en JSON : %v", err)
+			return
+		}
+
+		fmt.Println(string(json))
 	}
 
 	// gestion des erreurs de lecture

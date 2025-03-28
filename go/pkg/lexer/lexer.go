@@ -4,27 +4,45 @@ import (
 	"github.com/Pallandos/Compidown/pkg/lexemes"
 )
 
-func LexerInline(line string) string {
+func LexerInline(line string) lexemes.Block {
 
 	// teste des différents cas de lexèmes :
 
 	if lexemes.BlankLineRegexp.MatchString(line) {
-		return ("blank")
+
+		return (lexemes.NewBlock("BlankLine", "", nil))
+
 	} else if lexemes.TitleRegexp.MatchString(line) {
-		return ("title")
+
+		return (lexemes.NewBlock("Title", line, nil))
+
 	} else if lexemes.ThemeBreakRegexp.MatchString(line) {
-		return ("theme")
+
+		return (lexemes.NewBlock("ThemeBreak", "", nil))
+
 	} else if lexemes.FencedCodeRegexp.MatchString(line) {
-		return ("code")
+
+		return (lexemes.NewBlock("FencedCode", line, nil))
+
 	} else if lexemes.IndentCodeRegexp.MatchString(line) {
-		return ("indent code")
+
+		return (lexemes.NewBlock("IndentCode", line, nil))
+
 	} else if lexemes.QuoteRegexp.MatchString(line) {
-		return ("quote")
+
+		return (lexemes.NewBlock("Quote", line, nil))
+
 	} else if lexemes.OrderedListRegexp.MatchString(line) {
-		return ("ordered list")
+
+		return (lexemes.NewBlock("OrderedList", line, nil))
+
 	} else if lexemes.BulletListRegexp.MatchString(line) {
-		return ("bullet list")
+
+		return (lexemes.NewBlock("BulletList", line, nil))
+
 	} else {
-		return ("paragraph")
+
+		return (lexemes.NewBlock("Paragraph", line, nil))
+
 	}
 }

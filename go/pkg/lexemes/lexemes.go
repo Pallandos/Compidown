@@ -1,10 +1,16 @@
+// Décrit les lexemes de Markdown
+//
+// La première partie traite des lexemes de blocs
 package lexemes
 
-import "regexp"
+import (
+	"regexp"
+	"strings"
+)
 
 const (
 	ThemeBreak_r  = `^( ){0,3}(-{3}|_{3}|\*{3})$`
-	Title_r       = `^(#){1,6}( )(.)*$`
+	Title_r       = `^(#)*( )(.)*$`
 	IndentCode_r  = `^(   )( )*.*$`
 	FencedCode_r  = "^(`){3}[a-zA-Z]*$"
 	BlankLine_r   = `^\s*$`
@@ -24,23 +30,56 @@ var (
 	BulletListRegexp  = regexp.MustCompile(BulletList_r)
 )
 
-type BlockOptions struct {
-	is_raw      bool
-	is_terminal bool
+// Informations sur un bloc
+type BlockInfos struct {
+	IsRaw      bool   `json:"is_raw"`
+	IsTerminal bool   `json:"is_terminal"`
+	Errors     int    `json:"errors"`
+	ErrorsMsg  string `json:"errors_msg"`
+
+	// infos optionelles
+	TitleLevel int    `json:"title_level"`
+	Language   string `json:"language"`
 }
 
+// Structure des blocs de Markdown
 type Block struct {
-	BlockOptions
-
-	name    string
-	text    string
-	content []Block
+	Name    string     `json:"name"`
+	Caracts BlockInfos `json:"caracts"`
+	Text    string     `json:"text"`
+	Content []Block    `json:"content"`
 }
 
+// Crée un nouveau bloc
 func NewBlock(name string, text string, content []Block) Block {
 
 	var is_raw bool
 	var is_terminal bool
+	var errors int = 0
+	var errors_msg string = ""
+
+	// infos optionelles
+	var title_level int = 0
+	var language string = ""
+
+	// séparation des cas :
+
+	switch name {
+
+	case "Title":
+		title_level = len(text) - len(strings.TrimLeft(text, "#"))
+
+		if title_level > 6 {
+			// les titres sont d'un niveau entre 1 et 6
+			errors++
+			errors_msg += "Niveau de titre trop élevé : doit être inférieur à 6\n"
+			title_level = 0
+			name = "Paragraph"
+		} else {
+			text = strings.TrimLeft(text, "#")
+		}
+
+	}
 
 	if name == "IndentCode" || name == "FencedCode" || name == "ThemeBreak" || name == "BlankLine" {
 		is_raw = true
@@ -56,13 +95,20 @@ func NewBlock(name string, text string, content []Block) Block {
 
 	return Block{
 
-		BlockOptions: BlockOptions{
-			is_raw:      is_raw,
-			is_terminal: is_terminal,
+		Name: name,
+
+		Caracts: BlockInfos{
+			IsRaw:      is_raw,
+			IsTerminal: is_terminal,
+			Errors:     errors,
+			ErrorsMsg:  errors_msg,
+
+			// infos optionelles
+			TitleLevel: title_level,
+			Language:   language,
 		},
 
-		name:    name,
-		text:    text,
-		content: content,
+		Text:    text,
+		Content: content,
 	}
 }
