@@ -23,7 +23,7 @@ func main() {
 	// lecture
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
-		retour := lexer.LexerInline(scanner.Text())
+		retour := lexer.LexerBlock(scanner.Text())
 
 		json, err := json.Marshal(retour)
 
@@ -39,4 +39,8 @@ func main() {
 	if err := scanner.Err(); err != nil {
 		log.Fatalf("Erreur de lecture : %v", err)
 	}
+
+	// tests des inlines :
+	inlines := lexer.LexerInline("ceci *est* un text avec un **petit** peu de italique")
+	fmt.Println(inlines)
 }
