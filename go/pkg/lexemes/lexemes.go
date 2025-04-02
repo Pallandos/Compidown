@@ -44,14 +44,19 @@ type BlockInfos struct {
 
 // Structure des blocs de Markdown
 type Block struct {
-	Name    string     `json:"name"`
+	Genre   string     `json:"Genre"`
 	Caracts BlockInfos `json:"caracts"`
 	Text    string     `json:"text"`
-	Content []Block    `json:"content"`
+	Content []*Block   `json:"content"`
+}
+
+type Inline struct {
+	Genre string `json:"Genre"`
+	Text  string `json:"text"`
 }
 
 // Crée un nouveau bloc
-func NewBlock(name string, text string, content []Block) Block {
+func NewBlock(genre string, text string, content []*Block) Block {
 
 	var is_raw bool
 	var is_terminal bool
@@ -64,7 +69,7 @@ func NewBlock(name string, text string, content []Block) Block {
 
 	// séparation des cas :
 
-	switch name {
+	switch genre {
 
 	case "Title":
 		title_level = len(text) - len(strings.TrimLeft(text, "#"))
@@ -74,20 +79,20 @@ func NewBlock(name string, text string, content []Block) Block {
 			errors++
 			errors_msg += "Niveau de titre trop élevé : doit être inférieur à 6\n"
 			title_level = 0
-			name = "Paragraph"
+			genre = "Paragraph"
 		} else {
 			text = strings.TrimLeft(text, "#")
 		}
 
 	}
 
-	if name == "IndentCode" || name == "FencedCode" || name == "ThemeBreak" || name == "BlankLine" {
+	if genre == "IndentCode" || genre == "FencedCode" || genre == "ThemeBreak" || genre == "BlankLine" {
 		is_raw = true
 	} else {
 		is_raw = false
 	}
 
-	if name == "OrderedList" || name == "BulletList" || name == "Quote" {
+	if genre == "OrderedList" || genre == "BulletList" || genre == "Quote" {
 		is_terminal = false
 	} else {
 		is_terminal = true
@@ -95,7 +100,7 @@ func NewBlock(name string, text string, content []Block) Block {
 
 	return Block{
 
-		Name: name,
+		Genre: genre,
 
 		Caracts: BlockInfos{
 			IsRaw:      is_raw,
