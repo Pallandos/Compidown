@@ -1,6 +1,6 @@
 # Compidown
 
-by Jean CAYLUS et Jérémy Couture
+by Jean CAYLUS et Jérémy COUTURE
 
 ## Introduction
 

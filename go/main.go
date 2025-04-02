@@ -41,6 +41,6 @@ func main() {
 	}
 
 	// tests des inlines :
-	inlines := lexer.LexerInline("ceci *est* un text avec un **petit** peu de italique")
+	inlines := lexer.LexerInline("ceci *est* un text avec un **petit** peu de italique de gras et un [lien](youhou.com) et une image ![image](lien.com)")
 	fmt.Println(inlines)
 }
