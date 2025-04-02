@@ -1,0 +1,13 @@
+/* style.css */
+.fenced_code_block {
+    background-color: #cfcfcf60; /* Gris clair */
+    color: black; /* Texte en noir */
+    padding: 20px; /* Espacement autour du texte */
+    width: 300px; /* Largeur de l'encart */
+}
+.fenced_code_language {
+    background-color: #cfcfcf60; /* Gris clair */
+    color: rgb(46, 139, 132); /* Texte en bleu */
+    padding: 20px; /* Espacement autour du texte */
+    width: 300px; /* Largeur de l'encart */
+}
