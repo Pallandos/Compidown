@@ -148,6 +148,8 @@ func showblock(line lexemes.Inline) {
 }
 
 func Showtext(lines []lexemes.Inline) {
+	fmt.Println("Affichage des inlines :")
+	Import_style()
 	for _, inline := range lines {
 		showblock(inline)
 	}

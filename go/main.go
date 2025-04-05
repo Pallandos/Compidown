@@ -8,6 +8,7 @@ import (
 	"os"
 
 	"github.com/Pallandos/Compidown/pkg/lexer"
+	html_rpz "github.com/Pallandos/Compidown/pkg/showing"
 )
 
 func main() {
@@ -42,5 +43,6 @@ func main() {
 
 	// tests des inlines :
 	inlines := lexer.LexerInline("ceci *est* un text avec un **petit** peu de italique de gras et un [lien](youhou.com) et une image ![image](lien.com)")
+	html_rpz.Showtext(inlines)
 	fmt.Println(inlines)
 }
