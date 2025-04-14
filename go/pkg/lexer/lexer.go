@@ -54,10 +54,19 @@ func LexerInline(text string) []lexemes.Inline {
 
 	current_text := ""
 
+	echaped := false
+
 	//TODO : inline lexer
 
 	//parcours des caractères :
 	for i, char := range text {
+
+		// échappement
+		if echaped {
+			echaped = false
+			current_text += string(char)
+			continue
+		}
 
 		switch char {
 
@@ -213,6 +222,43 @@ func LexerInline(text string) []lexemes.Inline {
 				}
 			}
 
+		case '`':
+			// dans une emphase
+
+			if len(stack) > 0 {
+
+				top := stack[len(stack)-1]
+
+				if top == '`' {
+					// on est dans une emphase
+					stack = stack[:len(stack)-1] // pop
+					inlines = append(inlines, lexemes.Inline{Genre: "Emphase", Text: current_text})
+					current_text = ""
+
+				} else {
+					// on n'est pas dans une emphase
+					current_text += string(char)
+				}
+
+			} else {
+				// on clos l'inline précédent
+				inlines = append(inlines, lexemes.Inline{Genre: "Text", Text: current_text})
+				current_text = ""
+
+				// push on ouvre une emphase
+				stack = append(stack, char)
+			}
+
+		case '\\':
+			// échappement, on ignore le prochain caractère
+
+			if i+1 < len(text) {
+				echaped = true
+			} else {
+				//TODO warning : \ sans caractère suivant
+				continue
+			}
+
 		default:
 			current_text += string(char)
 		}
@@ -223,6 +269,8 @@ func LexerInline(text string) []lexemes.Inline {
 	if len(current_text) > 0 {
 		inlines = append(inlines, lexemes.Inline{Genre: "Text", Text: current_text})
 		current_text = ""
+
+		//TODOD warning ? il reste des inlines ouverts
 	}
 
 	return inlines
