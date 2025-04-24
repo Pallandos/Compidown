@@ -1,0 +1,124 @@
+// construit l'AST à partir de la liste de lexemes
+// parse la liste des lexemes
+
+package parser
+
+import (
+	"log"
+	"os"
+
+	"github.com/Pallandos/Compidown/pkg/lexemes"
+)
+
+type Node struct {
+	Genre     string
+	Text      string
+	Childrens []*Node
+	Parent    *Node
+}
+
+type AST struct {
+	Root *Node
+}
+
+func NewAST() *AST {
+	return &AST{
+		Root: &Node{
+			Genre:     "Document",
+			Text:      "",
+			Childrens: []*Node{},
+			Parent:    nil,
+		},
+	}
+}
+
+func (n *Node) AddChild(genre string, text string) {
+	child := &Node{
+		Genre:     genre,
+		Text:      text,
+		Childrens: []*Node{},
+		Parent:    n,
+	}
+	n.Childrens = append(n.Childrens, child)
+}
+
+// Parse la liste des lexemes et construit l'AST
+//
+// Visiteur récusrsif
+func Parse(lexemes []lexemes.Block) *AST {
+	ast := NewAST()
+	currentNode := ast.Root
+	deepth := 0
+
+	for i := 0; i < len(lexemes); i++ {
+		lexeme := lexemes[i]
+
+		// on monte si c'est une blank line et qu'on est déja descendu
+		if lexeme.Genre == "BlankLine" && deepth > 0 {
+			// on monte d'un niveau
+			if currentNode.Parent != nil {
+				currentNode = currentNode.Parent
+				deepth--
+			}
+			continue
+		}
+		switch lexeme.Caracts.IsTerminal {
+		case true:
+
+			// Si le lexeme est un bloc terminal, on l'ajoute comme enfant du noeud courant
+			currentNode.AddChild(lexeme.Genre, lexeme.Text)
+
+		case false:
+
+			// Si le lexeme est un bloc non terminal, on crée un nouveau noeud et on l'ajoute comme enfant du noeud courant
+			newNode := &Node{
+				Genre:     lexeme.Genre,
+				Text:      lexeme.Text,
+				Childrens: []*Node{},
+				Parent:    currentNode,
+			}
+
+			// TODO: on visite avec un visiteur externe et on incrémente i pour sauter les suivants
+
+			currentNode.Childrens = append(currentNode.Childrens, newNode)
+			currentNode = newNode
+			deepth++
+		}
+	}
+	return ast
+}
+
+// Print l'AST dans un fichier
+func (ast *AST) Print() {
+
+	print_path := "../out/print.txt"
+
+	file, err := os.Create(print_path)
+	if err != nil {
+		log.Fatalf("Erreur de création du fichier : %v", err)
+	}
+
+	// pour l'affichage chaque enfant sera affiché avec une indentation en plus
+	var printNode func(node *Node, depth int)
+
+	printNode = func(node *Node, depth int) {
+		indentation := ""
+		for i := 0; i < depth; i++ {
+			indentation += "    "
+		}
+		_, err := file.WriteString(indentation + node.Genre + ": " + node.Text + "\n")
+		if err != nil {
+			log.Fatalf("Erreur d'écriture dans le fichier : %v", err)
+		}
+		for _, child := range node.Childrens {
+			printNode(child, depth+1)
+		}
+	}
+
+	printNode(ast.Root, 0)
+
+	err = file.Close()
+	if err != nil {
+		log.Fatalf("Erreur de fermeture du fichier : %v", err)
+	}
+}

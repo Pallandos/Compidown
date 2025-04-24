@@ -77,13 +77,15 @@ func NewBlock(genre string, text string, content []*Block) Block {
 		if title_level > 6 {
 			// les titres sont d'un niveau entre 1 et 6
 			errors++
-			errors_msg += "Niveau de titre trop élevé : doit être inférieur à 6\n"
+			errors_msg += "Niveau de titre trop élevé : doit être inférieur à 6"
 			title_level = 0
 			genre = "Paragraph"
 		} else {
 			text = strings.TrimLeft(text, "#")
 		}
 
+	case "Quote":
+		text = strings.TrimLeft(text, ">")
 	}
 
 	if genre == "IndentCode" || genre == "FencedCode" || genre == "ThemeBreak" || genre == "BlankLine" {

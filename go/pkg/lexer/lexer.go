@@ -270,7 +270,7 @@ func LexerInline(text string) []lexemes.Inline {
 		inlines = append(inlines, lexemes.Inline{Genre: "Text", Text: current_text})
 		current_text = ""
 
-		//TODOD warning ? il reste des inlines ouverts
+		//TODO : warning ? il reste des inlines ouverts
 	}
 
 	return inlines
