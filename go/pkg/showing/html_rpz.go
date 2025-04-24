@@ -109,6 +109,14 @@ func Rpz_bulletlist(line string) {
 	}
 }
 
+func Rpz_bold(line string, file *os.File) {
+	file.WriteString("<b>" + line + "</b>")
+}
+
+func Rpz_italic(line string, file *os.File) {
+	file.WriteString("<i>" + line + "</i	>")
+}
+
 func Rpz_paragraph(line string) {
 	file, err := os.OpenFile("test.html", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0600)
 	if err != nil {
@@ -116,6 +124,7 @@ func Rpz_paragraph(line string) {
 	}
 	defer file.Close()                                 // on ferme automatiquement à la fin de notre programme
 	_, err = file.WriteString("<p>" + line + "</p>\n") // écrire dans le fichier
+	Rpz_bold("Ceci est le message en gras", file)
 	if err != nil {
 		panic(err)
 	}
@@ -153,6 +162,7 @@ func Showtext(lines []lexemes.Inline) {
 	for _, inline := range lines {
 		showblock(inline)
 	}
+	Rpz_paragraph("Ceci est un test de paragraphe")
 }
 
 func Import_style() {
@@ -161,7 +171,7 @@ func Import_style() {
 		panic(err)
 	}
 	defer file.Close() // on ferme automatiquement à la fin de notre programme
-	_, err = file.WriteString("<!DOCTYPE html><html lang='fr'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'><link rel='stylesheet' href='style.css'> </head>")
+	_, err = file.WriteString("<!DOCTYPE html><html lang='fr'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'><link rel='stylesheet' href='style.css'> </head> \n")
 	if err != nil {
 		panic(err)
 	}
