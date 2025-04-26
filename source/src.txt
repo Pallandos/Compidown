@@ -3,12 +3,17 @@ testetst
 
 ############ trop de hashtag
 >test
+> la quote continue
 
 vid
 
  ---
 
     code bloccc
+
+```py
+a = 7
+```
 
 1. test
 10. oas liste

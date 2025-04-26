@@ -10,7 +10,7 @@ import (
 
 const (
 	ThemeBreak_r  = `^( ){0,3}(-{3}|_{3}|\*{3})$`
-	Title_r       = `^(#)*( )(.)*$`
+	Title_r       = `^(#)+( )(.)*$`
 	IndentCode_r  = `^(   )( )*.*$`
 	FencedCode_r  = "^(`){3}[a-zA-Z]*$"
 	BlankLine_r   = `^\s*$`

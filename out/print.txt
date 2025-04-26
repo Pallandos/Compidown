@@ -3,14 +3,24 @@ Document:
     Title:  test de titre
     BlankLine: 
     Paragraph: ############ trop de hashtag
-    Quote: test
+    Quote: 
+        Quote: test
+        Quote:  la quote continue
+    BlankLine: 
     Paragraph: vid
     BlankLine: 
-    Title:  ---
+    ThemeBreak: 
     BlankLine: 
-    Title:     code bloccc
+    IndentCode:     code bloccc
     BlankLine: 
-    OrderedList: 1. test
+    FencedCode: ```py
+    Paragraph: a = 7
+    FencedCode: ```
+    BlankLine: 
+    OrderedList: 
+        OrderedList: 1. test
         Paragraph: 10. oas liste
+    BlankLine: 
     Paragraph: .pasliste
-    BulletList: + liste !
+    BulletList: 
+        BulletList: + liste !

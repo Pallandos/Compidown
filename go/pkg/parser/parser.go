@@ -43,14 +43,12 @@ func (n *Node) AddChild(genre string, text string) {
 }
 
 // Parse la liste des lexemes et construit l'AST
-//
-// Visiteur récusrsif
 func Parse(lexemes []lexemes.Block) *AST {
 	ast := NewAST()
 	currentNode := ast.Root
 	deepth := 0
 
-	for i := 0; i < len(lexemes); i++ {
+	for i := 0; i < len(lexemes); {
 		lexeme := lexemes[i]
 
 		// on monte si c'est une blank line et qu'on est déja descendu
@@ -60,6 +58,7 @@ func Parse(lexemes []lexemes.Block) *AST {
 				currentNode = currentNode.Parent
 				deepth--
 			}
+			i++
 			continue
 		}
 		switch lexeme.Caracts.IsTerminal {
@@ -73,7 +72,7 @@ func Parse(lexemes []lexemes.Block) *AST {
 			// Si le lexeme est un bloc non terminal, on crée un nouveau noeud et on l'ajoute comme enfant du noeud courant
 			newNode := &Node{
 				Genre:     lexeme.Genre,
-				Text:      lexeme.Text,
+				Text:      "",
 				Childrens: []*Node{},
 				Parent:    currentNode,
 			}
@@ -82,8 +81,11 @@ func Parse(lexemes []lexemes.Block) *AST {
 
 			currentNode.Childrens = append(currentNode.Childrens, newNode)
 			currentNode = newNode
-			deepth++
+
+			i, currentNode = currentNode.Visit(lexemes, i, lexeme.Genre)
+			continue
 		}
+		i++
 	}
 	return ast
 }
@@ -121,4 +123,24 @@ func (ast *AST) Print() {
 	if err != nil {
 		log.Fatalf("Erreur de fermeture du fichier : %v", err)
 	}
+}
+
+// --------- visiteurs externes --------------
+
+func (node *Node) Visit(lexemes []lexemes.Block, indice int, genre string) (int, *Node) {
+
+	for i := indice; i < len(lexemes); i++ {
+		lexeme := lexemes[i]
+
+		if lexeme.Genre == "BlankLine" {
+			// le bloc courant est terminé, on retourne le parent
+			return i, node.Parent
+		} else {
+			// on ajoute le lexeme au noeud courant
+			node.AddChild(lexeme.Genre, lexeme.Text)
+		}
+	}
+
+	// douteux :
+	return len(lexemes), node
 }
