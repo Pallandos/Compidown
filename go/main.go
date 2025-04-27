@@ -7,7 +7,7 @@ import (
 
 	"github.com/Pallandos/Compidown/pkg/lexemes"
 	"github.com/Pallandos/Compidown/pkg/lexer"
-	"github.com/Pallandos/Compidown/pkg/parser"
+	html_rpz "github.com/Pallandos/Compidown/pkg/showing"
 )
 
 func main() {
@@ -41,7 +41,10 @@ func main() {
 	}
 
 	// affichage
-	ast := parser.Parse(lexeme_list)
-
-	ast.Print()
+	//fmt.Println(lexeme_list)
+	//ast := parser.Parse(lexeme_list)
+	html_rpz.ShowBlock(lexeme_list)
+	//inlines := lexer.LexerInline("ceci *est* un text avec un **petit** peu de italique")
+	//html_rpz.Showtext(inlines)
+	//ast.Print()
 }
