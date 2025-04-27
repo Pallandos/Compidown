@@ -1,26 +1,25 @@
 Document: 
-    Paragraph: testetst
-    Title:  test de titre
+    Paragraph: this is an example
     BlankLine: 
-    Paragraph: ############ trop de hashtag
+    Paragraph: re
+    BlankLine: 
+    Paragraph: ####### titre
+    BlankLine: 
     Quote: 
-        Quote: test
-        Quote:  la quote continue
+        Quote: wtf
+        Quote:  etet
     BlankLine: 
-    Paragraph: vid
+    Paragraph: fiex
     BlankLine: 
-    ThemeBreak: 
+    IndentCode: code indenté
     BlankLine: 
-    IndentCode:     code bloccc
-    BlankLine: 
-    FencedCode: ```py
-    Paragraph: a = 7
-    FencedCode: ```
-    BlankLine: 
-    OrderedList: 
-        OrderedList: 1. test
-        Paragraph: 10. oas liste
-    BlankLine: 
-    Paragraph: .pasliste
     BulletList: 
-        BulletList: + liste !
+        BulletList: - liste
+        BulletList: - listeee
+    Paragraph: finex
+    BlankLine: 
+    FencedCode: py
+        RawText: 
+        RawText: bon
+        RawText: 
+    Paragraph: yeahhhhh

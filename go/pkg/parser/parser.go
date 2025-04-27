@@ -6,6 +6,7 @@ package parser
 import (
 	"log"
 	"os"
+	"strings"
 
 	"github.com/Pallandos/Compidown/pkg/lexemes"
 )
@@ -46,21 +47,21 @@ func (n *Node) AddChild(genre string, text string) {
 func Parse(lexemes []lexemes.Block) *AST {
 	ast := NewAST()
 	currentNode := ast.Root
-	deepth := 0
+	// deepth := 0
 
 	for i := 0; i < len(lexemes); {
 		lexeme := lexemes[i]
 
-		// on monte si c'est une blank line et qu'on est déja descendu
-		if lexeme.Genre == "BlankLine" && deepth > 0 {
-			// on monte d'un niveau
-			if currentNode.Parent != nil {
-				currentNode = currentNode.Parent
-				deepth--
-			}
-			i++
-			continue
-		}
+		// // on monte si c'est une blank line et qu'on est déja descendu
+		// if lexeme.Genre == "BlankLine" && deepth > 0 {
+		// 	// on monte d'un niveau
+		// 	if currentNode.Parent != nil {
+		// 		currentNode = currentNode.Parent
+		// 		deepth--
+		// 	}
+		// 	i++
+		// 	continue
+		// }
 		switch lexeme.Caracts.IsTerminal {
 		case true:
 
@@ -76,8 +77,6 @@ func Parse(lexemes []lexemes.Block) *AST {
 				Childrens: []*Node{},
 				Parent:    currentNode,
 			}
-
-			// TODO: on visite avec un visiteur externe et on incrémente i pour sauter les suivants
 
 			currentNode.Childrens = append(currentNode.Childrens, newNode)
 			currentNode = newNode
@@ -129,11 +128,88 @@ func (ast *AST) Print() {
 
 func (node *Node) Visit(lexemes []lexemes.Block, indice int, genre string) (int, *Node) {
 
+	switch genre {
+	case "FencedCode":
+		return node.VisitFencedCode(lexemes, indice)
+	case "Quote":
+		return node.VisitQuote(lexemes, indice)
+	case "BulletList":
+		return node.VisitBulletList(lexemes, indice)
+	case "OrderedList":
+		return node.VisitOrderedList(lexemes, indice)
+	default:
+		return indice, node
+	}
+}
+
+func (node *Node) VisitFencedCode(lexemes []lexemes.Block, indice int) (int, *Node) {
+
+	for i := indice; i < len(lexemes); i++ {
+		lexeme := lexemes[i]
+
+		if i == indice {
+			// on ajoute le language au noeud parent
+
+			language := strings.TrimLeft(lexeme.Text, "`")
+			node.Text += language
+
+		} else if lexeme.Genre == "FencedCode" {
+			// on est à la fin du bloc
+
+			return i + 1, node.Parent
+		} else {
+			// on ajoute le lexeme au noeud courant
+			node.AddChild("RawText", lexeme.Text)
+		}
+	}
+
+	// douteux :
+	return len(lexemes), node
+}
+
+func (node *Node) VisitQuote(lexemes []lexemes.Block, indice int) (int, *Node) {
 	for i := indice; i < len(lexemes); i++ {
 		lexeme := lexemes[i]
 
 		if lexeme.Genre == "BlankLine" {
-			// le bloc courant est terminé, on retourne le parent
+			// on est à la fin du bloc
+
+			return i, node.Parent
+		} else {
+			// on ajoute le lexeme au noeud courant
+			node.AddChild(lexeme.Genre, lexeme.Text)
+		}
+	}
+
+	// douteux :
+	return len(lexemes), node
+}
+
+func (node *Node) VisitBulletList(lexemes []lexemes.Block, indice int) (int, *Node) {
+	for i := indice; i < len(lexemes); i++ {
+		lexeme := lexemes[i]
+
+		if lexeme.Genre != "BulletList" {
+			// on est à la fin du bloc
+
+			return i, node.Parent
+		} else {
+			// on ajoute le lexeme au noeud courant
+			node.AddChild(lexeme.Genre, lexeme.Text)
+		}
+	}
+
+	// douteux :
+	return len(lexemes), node
+}
+
+func (node *Node) VisitOrderedList(lexemes []lexemes.Block, indice int) (int, *Node) {
+	for i := indice; i < len(lexemes); i++ {
+		lexeme := lexemes[i]
+
+		if lexeme.Genre != "OrderedList" {
+			// on est à la fin du bloc
+
 			return i, node.Parent
 		} else {
 			// on ajoute le lexeme au noeud courant

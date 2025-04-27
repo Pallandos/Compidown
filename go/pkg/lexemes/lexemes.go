@@ -12,7 +12,7 @@ const (
 	ThemeBreak_r  = `^( ){0,3}(-{3}|_{3}|\*{3})$`
 	Title_r       = `^(#)+( )(.)*$`
 	IndentCode_r  = `^(   )( )*.*$`
-	FencedCode_r  = "^(`){3}[a-zA-Z]*$"
+	FencedCode_r  = "^(`){3}[a-zA-Z]*( )*$"
 	BlankLine_r   = `^\s*$`
 	Quote_r       = `^( ){0,3}>( )?.*$`
 	OrderedList_r = `^( )*[0-9][\.|\)]( )+.*$`
@@ -86,15 +86,17 @@ func NewBlock(genre string, text string, content []*Block) Block {
 
 	case "Quote":
 		text = strings.TrimLeft(text, ">")
+	case "IndentCode":
+		text = strings.TrimLeft(text, " ")
 	}
 
-	if genre == "IndentCode" || genre == "FencedCode" || genre == "ThemeBreak" || genre == "BlankLine" {
+	if genre == "IndentCode" || genre == "FencedCode" || genre == "ThemeBreak" || genre == "BlankLine" || genre == "RawText" {
 		is_raw = true
 	} else {
 		is_raw = false
 	}
 
-	if genre == "OrderedList" || genre == "BulletList" || genre == "Quote" {
+	if genre == "OrderedList" || genre == "BulletList" || genre == "Quote" || genre == "FencedCode" {
 		is_terminal = false
 	} else {
 		is_terminal = true
