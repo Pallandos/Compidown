@@ -265,4 +265,41 @@ Document:
 
 ## Traducteur 
 
-Le traducteur en page html se base sur les lexèmes transformés en blocs. On parcourt l'ensemble des blocs qui contiennent contenus dans la liste de lexèmes et pour chacun d'entre eux on appelle une fonction de représentation. Ces fonctions prenent en argument le fichier output dans lequel écrire le code html correspondant à la représentation du fichier source markdown en html. La correspondance des deux langages provient de la documentation du *GitHub flavored Markdown*. L
+Le traducteur en page html se basant sur les lexèmes transformés en blocs correspond au fichier `html_rpz.go`. On parcourt l'ensemble des blocs qui contiennent contenus dans la liste de lexèmes et pour chacun d'entre eux on appelle une fonction de représentation. Ces fonctions écrivent dnas le fichier `output.html` le code html correspondant à la représentation du fichier source markdown en html. La correspondance des deux langages provient de la documentation du *GitHub flavored Markdown*. 
+
+Pour chaque block dont la variable `IsRaw` est false on parse l'intérieur et appelle la fonction de représentation correspondante. Afin de gérer les différentes balises imbriquées les unes dans les autres, chaque ligne du inline est responsable, en fonction de son genre et de celui de la précédente ligne, de fermer ou non la prédente balise et d'ouvrir ou non la sienne.
+
+Par exemple
+
+```
+# Chapitre 1 
+
+Il était *une* fois un csn devant **son écran**
+```
+
+Sera analysé comme suit 
+
+``````
+{Title {false true 0  1 }  Chapitre 1  []}
+ 
+{BlankLine {true true 0  0 }  []}
+ 
+{Paragraph {false true 0  0 } Il était *une* fois un csn devant **son écran** []}
+ 
+{Text Il était }
+{Italic une}
+{Text  fois un csn devant }
+{Bold son écran}
+``````
+
+Et écrira dans le fichier de sortie
+
+```html
+<!DOCTYPE html><html lang='fr'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'><link rel='stylesheet' href='go/pkg/showing/style.css'> </head> 
+<h1> Chapitre 1 </h1>
+<p>Il était <i>une</i	> fois un csn devant <b>son écran</b>
+```
+
+Ainsi on joue sur le `inline.Genre` pour faire appel à la bonne fonction de représentation.
+
+Un css a été écrit afin de rendre le fichier `html_rpz.go` plus lisible et la représentation html plus proche d'une preview markdown, il est écrit en premier par la fonction `Import_style`.
