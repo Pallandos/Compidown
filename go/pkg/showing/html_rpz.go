@@ -299,8 +299,8 @@ func ShowBlock2(output_file_path string, lines []lexemes.Block) {
 	}
 	var is_fency_open bool = false
 	for _, block := range lines {
-		fmt.Println(block)
-		fmt.Println(" ")
+		// fmt.Println(block)
+		// fmt.Println(" ")
 		if is_fency_open {
 			if block.Genre == "FencedCode" {
 				is_fency_open = false
