@@ -1,18 +1,26 @@
 /* style.css */
 .fenced_code_block {
-    background-color: #cfcfcf60; /* Gris clair */
-    color: black; /* Texte en noir */
-    padding: 20px; /* Espacement autour du texte */
-    width: 300px; /* Largeur de l'encart */
-    font-family: monospace;
+  background-color: #cfcfcf60; /* Gris clair */
+  color: black; /* Texte en noir */
+  padding: 20px; /* Espacement autour du texte */
+  width: 100%; /* Utiliser toute la largeur disponible */
+  max-width: 800px; /* Ne pas dépasser 800px par exemple */
+  font-family: monospace;
+  box-sizing: border-box; /* Inclut le padding dans la largeur */
+  margin: 0 auto; /* Centrer le bloc */
 }
+
 .fenced_code_language {
-    background-color: #cfcfcf60; /* Gris clair */
-    color: rgb(46, 139, 132); /* Texte en bleu */
-    padding: 20px; /* Espacement autour du texte */
-    width: 300px; /* Largeur de l'encart */
-    font-family: monospace;
+  background-color: #cfcfcf60; /* Gris clair */
+  color: rgb(46, 139, 132); /* Texte en bleu */
+  padding: 20px; /* Espacement autour du texte */
+  width: 100%;
+  max-width: 800px;
+  font-family: monospace;
+  box-sizing: border-box;
+  margin: 0 auto;
 }
+
 
 
 body {
