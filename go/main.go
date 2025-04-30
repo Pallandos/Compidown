@@ -67,12 +67,9 @@ func main() {
 		log.Fatalf("Erreur de lecture : %v", err)
 	}
 
-	// affichage
-	//fmt.Println(lexeme_list)
 	ast := parser.Parse(lexeme_list)
 	output_file_path := "../output.html"
 	html_rpz.ShowBlock2(output_file_path, lexeme_list)
-	//html_rpz.Showtext(inlines)
 	ast.Print()
 
 	openBrowser("../output.html")

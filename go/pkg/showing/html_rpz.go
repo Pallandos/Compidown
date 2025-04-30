@@ -363,7 +363,7 @@ func Import_style(file_path string) {
 		panic(err)
 	}
 	defer file.Close() // on ferme automatiquement à la fin de notre programme
-	_, err = file.WriteString("<!DOCTYPE html><html lang='fr'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'><link rel='stylesheet' href='pkg/showing/style.css'> </head> \n")
+	_, err = file.WriteString("<!DOCTYPE html><html lang='fr'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'><link rel='stylesheet' href='go/pkg/showing/style.css'> </head> \n")
 	if err != nil {
 		panic(err)
 	}

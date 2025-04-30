@@ -264,3 +264,5 @@ Document:
 
 
 ## Traducteur 
+
+Le traducteur en page html se base sur les lexèmes transformés en blocs. On parcourt l'ensemble des blocs qui contiennent contenus dans la liste de lexèmes et pour chacun d'entre eux on appelle une fonction de représentation. Ces fonctions prenent en argument le fichier output dans lequel écrire le code html correspondant à la représentation du fichier source markdown en html. La correspondance des deux langages provient de la documentation du *GitHub flavored Markdown*. L
