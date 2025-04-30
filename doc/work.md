@@ -1,5 +1,7 @@
 # Projet COMPIDOWN
 
+CETTE VERSION EST PERIMEE
+
 Comme dans le cours, je suivrais les étapes suivantes : 
 
 1. Lexer
@@ -9,7 +11,8 @@ Comme dans le cours, je suivrais les étapes suivantes :
 
 # Lexer
 
-La première étape dans le développement du lexer est de réaliser une liste **exhaustive** des lexèmes existants. Puisqu'il n'est pas raisonable de directement tout écrire, on commencera par les expressions les plus utiles, puis on ajoutera au fur et à mesure des lexèmes. Puis on écrira des expressions rationelles correspondants à ces lexèmes. 
+La première étape dans le développement du lexer est de réaliser une liste **exhaustive** des lexèmes existants. Notre lexer, écrit dans `lexer.go` réalise deux parsings différents : un parsing en ligne et un *dans les lignes*, dit *inline*. En effet, comme nous pouvons le voir dans le document de la grammaire, le Markdown est composé de blocs de lignes (comme les titres, les paragraphes etc). Mais certains éléments sont inclus dans ces blocs de ligne comme les italiques, gras etc. Il ets donc important d'identifier les lexèmes à tous les niveaux du langage.
+
 
 ## Lexèmes
 
@@ -76,10 +79,6 @@ On le définit par 1 à 6 éléments hashtag `#`, suivi d'un espace nécessaire,
 Une REGEX python qui décrit ce lexème est :
 
     "(#){1,6}( )(.)*"
-
-##### Setext
-
-???
 
 ##### Bloc de code indenté
 

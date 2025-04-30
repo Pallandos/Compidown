@@ -8,18 +8,26 @@ Ce projet vise à réaliser un interpréteur pour le langage **Markdown**. Je me
 
 La grammaire que j'ai utilisée pour mon projet est lisible [ici](./doc/grammaire.md).
 
+## Usage 
+
+La syntaxe de l'outil est : 
+
+    ./compidown <path_to_source>
+
+Lors de l'exécution de cette commande, le programme va chercher le fichier source donné et le compiler en html // sortie ?? //. Un dossier `/out` sera créé avec l'affichage de l'AST.
+
 ### Pourquoi Go
 
-Ce projet est écrit en [Go](https://go.dev/), un langage de programmation développé par Google. Nous avons choisi Go car c'est un langage simple, à la fois à la lecture et à l'apprentissage; mais aussi pour sa rapidité d'écriture. En effet, Go est un langage compilé, très inspiré du C tout en simplifiant sa syntaxe et en incluant davantage de fonctions natives. 
+Ce projet est écrit en [Go](https://go.dev/), un langage de programmation développé par Google. Nous avons choisi Go car c'est un langage simple, à la fois à la lecture et à l'apprentissage ; mais aussi pour sa rapidité d'écriture. En effet, Go est un langage compilé, très inspiré du C tout en simplifiant sa syntaxe et en incluant davantage de fonctions natives. 
 
 Et puis, nous avons aussi agi par curiosité. En mars 2025, Microsoft annonce réécrire le noyau de Typescript en Go, et annonce une vitesse d'execution multipliée par 10! Intrigués, nous avons décidé de découvrir ce langage. 
 
 
 ## Déroulement 
 
-Pour la réalisation du projet, j'ai travaillé selon ce schéma : [déroulement](./doc/work.md)
+Pour les informations sur le déroulé du projet, voir [ce document](./doc/doc.md)
 
-Au moment du rendu de ce projet, notre compilateur prends en charge tous les items de la [grammaire](./doc/grammaire.md) décrite, à l'exception de : 
+Au moment du rendu de ce projet, notre compilateur prend en charge tous les items de la [grammaire](./doc/grammaire.md) décrite, à l'exception de : 
 
 - les tableaux : très complexes à afficher en HTML
 - les blocs HTML : assez difficiles à délimités, et rarement utilisés 
@@ -33,6 +41,6 @@ Le dossier `/bin` inclut des binaires pour les OS suivants :
 - darwin (MacOS) AMD64
 - darwin (MacOS) ARM64
 
-Il est de plus possible de compiler dans un des systèmes d'exploitations compatibles avec Go. Pour voir la liste des OS et architecture supportés : 
+Il est de plus possible de compiler dans un des systèmes d'exploitation compatibles avec Go. Pour voir la liste des OS et architecture supportés : 
 
     go tool dist list

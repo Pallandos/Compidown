@@ -11,6 +11,12 @@ import (
 	"github.com/Pallandos/Compidown/pkg/lexemes"
 )
 
+const (
+	colorRed   = "\033[31m"
+	colorGreen = "\033[32m"
+	colorReset = "\033[0m"
+)
+
 type Node struct {
 	Genre     string
 	Text      string
@@ -51,6 +57,11 @@ func Parse(lexemes []lexemes.Block) *AST {
 
 	for i := 0; i < len(lexemes); {
 		lexeme := lexemes[i]
+
+		// on vérifie si il y a une erreur :
+		if lexeme.Caracts.Errors > 0 {
+			log.Fatalf("%sErreur%s / dans :  %v / %s%v%s", colorRed, colorReset, lexeme.Text, colorGreen, lexeme.Caracts.ErrorsMsg, colorReset)
+		}
 
 		// // on monte si c'est une blank line et qu'on est déja descendu
 		// if lexeme.Genre == "BlankLine" && deepth > 0 {

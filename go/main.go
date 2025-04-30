@@ -7,11 +7,17 @@ import (
 
 	"github.com/Pallandos/Compidown/pkg/lexemes"
 	"github.com/Pallandos/Compidown/pkg/lexer"
-	html_rpz "github.com/Pallandos/Compidown/pkg/showing"
+	"github.com/Pallandos/Compidown/pkg/parser"
 )
 
 func main() {
-	file_path := "../source/src.txt"
+	// argumments
+
+	if len(os.Args) < 2 {
+		log.Fatalf("Usage: %s <file_path>", os.Args[0])
+	}
+
+	file_path := os.Args[1]
 	lexeme_list := []lexemes.Block{}
 
 	// ouverture
@@ -42,9 +48,8 @@ func main() {
 
 	// affichage
 	//fmt.Println(lexeme_list)
-	//ast := parser.Parse(lexeme_list)
-	html_rpz.ShowBlock(lexeme_list)
-	//inlines := lexer.LexerInline("ceci *est* un text avec un **petit** peu de italique")
+	ast := parser.Parse(lexeme_list)
+	// html_rpz.ShowBlock(lexeme_list)
 	//html_rpz.Showtext(inlines)
-	//ast.Print()
+	ast.Print()
 }
