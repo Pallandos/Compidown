@@ -10,8 +10,8 @@ import (
 	"github.com/Pallandos/Compidown/pkg/lexer"
 )
 
-func Rpz_title(line string, level int) {
-	file, err := os.OpenFile("test.html", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0600)
+func Rpz_title(file_path string, line string, level int) {
+	file, err := os.OpenFile(file_path, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0600)
 	if err != nil {
 		panic(err)
 	}
@@ -33,8 +33,8 @@ func Rpz_title(line string, level int) {
 	}
 }
 
-func Rpz_blankline() {
-	file, err := os.OpenFile("test.html", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0600)
+func Rpz_blankline(file_path string) {
+	file, err := os.OpenFile(file_path, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0600)
 	if err != nil {
 		panic(err)
 	}
@@ -45,8 +45,8 @@ func Rpz_blankline() {
 	}
 }
 
-func Rpz_themebreak() {
-	file, err := os.OpenFile("test.html", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0600)
+func Rpz_themebreak(file_path string) {
+	file, err := os.OpenFile(file_path, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0600)
 	if err != nil {
 		panic(err)
 	}
@@ -57,8 +57,8 @@ func Rpz_themebreak() {
 	}
 }
 
-func Rpz_fencedcode_language(language string) {
-	file, err := os.OpenFile("test.html", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0600)
+func Rpz_fencedcode_language(file_path string, language string) {
+	file, err := os.OpenFile(file_path, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0600)
 	if err != nil {
 		panic(err)
 	}
@@ -74,8 +74,8 @@ func Rpz_fencedcode_language(language string) {
 	}
 }
 
-func Rpz_fencedcode(line string) {
-	file, err := os.OpenFile("test.html", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0600)
+func Rpz_fencedcode(file_path string, line string) {
+	file, err := os.OpenFile(file_path, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0600)
 	if err != nil {
 		panic(err)
 	}
@@ -86,8 +86,8 @@ func Rpz_fencedcode(line string) {
 	}
 }
 
-func Rpz_intentedcode(line string) {
-	file, err := os.OpenFile("test.html", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0600)
+func Rpz_intentedcode(file_path string, line string) {
+	file, err := os.OpenFile(file_path, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0600)
 	if err != nil {
 		panic(err)
 	}
@@ -98,8 +98,8 @@ func Rpz_intentedcode(line string) {
 	}
 }
 
-func Rpz_quote(line string) {
-	file, err := os.OpenFile("test.html", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0600)
+func Rpz_quote(file_path string, line string) {
+	file, err := os.OpenFile(file_path, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0600)
 	if err != nil {
 		panic(err)
 	}
@@ -110,8 +110,8 @@ func Rpz_quote(line string) {
 	}
 }
 
-func Rpz_unopened_quote(line string) {
-	file, err := os.OpenFile("test.html", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0600)
+func Rpz_unopened_quote(file_path string, line string) {
+	file, err := os.OpenFile(file_path, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0600)
 	if err != nil {
 		panic(err)
 	}
@@ -122,8 +122,8 @@ func Rpz_unopened_quote(line string) {
 	}
 }
 
-func Rpz_orderedlist(line string) {
-	file, err := os.OpenFile("test.html", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0600)
+func Rpz_orderedlist(file_path string, line string) {
+	file, err := os.OpenFile(file_path, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0600)
 	if err != nil {
 		panic(err)
 	}
@@ -134,8 +134,8 @@ func Rpz_orderedlist(line string) {
 	}
 }
 
-func Rpz_bulletlist(line string) {
-	file, err := os.OpenFile("test.html", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0600)
+func Rpz_bulletlist(file_path string, line string) {
+	file, err := os.OpenFile(file_path, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0600)
 	if err != nil {
 		panic(err)
 	}
@@ -154,8 +154,8 @@ func Rpz_italic(line string, file *os.File) {
 	file.WriteString("<i>" + line + "</i	>")
 }
 
-func Rpz_paragraph(line string) {
-	file, err := os.OpenFile("test.html", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0600)
+func Rpz_paragraph(file_path string, line string) {
+	file, err := os.OpenFile(file_path, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0600)
 	if err != nil {
 		panic(err)
 	}
@@ -178,7 +178,8 @@ func Rpz_paragraph(line string) {
 			lastSpaceIndex := strings.LastIndex(inline.Text, " ")
 			beforeLastSpace := inline.Text[:lastSpaceIndex]  // Substring before the last space
 			afterLastSpace := inline.Text[lastSpaceIndex+1:] // Substring after the last space
-
+			fmt.Println(beforeLastSpace)
+			fmt.Println(afterLastSpace)
 			file.WriteString("<a href='" + afterLastSpace + "'>" + beforeLastSpace + "</a>")
 		}
 		if inline.Genre == "Image" {
@@ -187,8 +188,8 @@ func Rpz_paragraph(line string) {
 	}
 }
 
-func Rpz_unopened_paragraph(line string) {
-	file, err := os.OpenFile("test.html", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0600)
+func Rpz_unopened_paragraph(file_path string, line string) {
+	file, err := os.OpenFile(file_path, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0600)
 	if err != nil {
 		panic(err)
 	}
@@ -199,8 +200,8 @@ func Rpz_unopened_paragraph(line string) {
 	}
 }
 
-func Rpz_space() {
-	file, err := os.OpenFile("test.html", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0600)
+func Rpz_space(file_path string) {
+	file, err := os.OpenFile(file_path, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0600)
 	if err != nil {
 		panic(err)
 	}
@@ -236,8 +237,8 @@ func findcloser(block lexemes.Block) string {
 	return ("")
 }
 
-func writecloser(closer string) {
-	file, err := os.OpenFile("test.html", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0600)
+func writecloser(file_path string, closer string) {
+	file, err := os.OpenFile(file_path, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0600)
 	if err != nil {
 		panic(err)
 	}
@@ -248,48 +249,48 @@ func writecloser(closer string) {
 	}
 }
 
-func showblock(line lexemes.Inline) {
+func showblock(file_path string, line lexemes.Inline) {
 	switch line.Genre {
 	case "Title":
 		// Rpz_title(line.Text, line.caracts.TitleLevel)
 	case "BlankLine":
-		Rpz_blankline()
+		Rpz_blankline(file_path)
 	case "ThemeBreak":
-		Rpz_themebreak()
+		Rpz_themebreak(file_path)
 	case "FencedCode":
 		//Rpz_fencedcode(line.Text, line.Caracts.Language)
 	case "IndentCode":
-		Rpz_intentedcode(line.Text)
+		Rpz_intentedcode(file_path, line.Text)
 	case "Quote":
-		Rpz_quote(line.Text)
+		Rpz_quote(file_path, line.Text)
 	case "OrderedList":
-		Rpz_orderedlist(line.Text)
+		Rpz_orderedlist(file_path, line.Text)
 	case "BulletList":
-		Rpz_bulletlist(line.Text)
+		Rpz_bulletlist(file_path, line.Text)
 	case "Paragraph":
-		Rpz_paragraph(line.Text)
+		Rpz_paragraph(file_path, line.Text)
 	}
 }
 
-func Showtext(lines []lexemes.Inline) {
-	Import_style()
+func Showtext(file_path string, lines []lexemes.Inline) {
+	Import_style(file_path)
 	for _, inline := range lines {
-		showblock(inline)
+		showblock(file_path, inline)
 	}
 	//Rpz_fencedcode("fencedcode", "python")
-	Rpz_intentedcode("intentedcode")
-	Rpz_quote("quote")
-	Rpz_title("title", 1)
-	Rpz_themebreak()
-	Rpz_blankline()
-	Rpz_bulletlist("bulletlist")
-	Rpz_orderedlist("orderedlist")
-	Rpz_paragraph("paragraph")
+	Rpz_intentedcode(file_path, "intentedcode")
+	Rpz_quote(file_path, "quote")
+	Rpz_title(file_path, "title", 1)
+	Rpz_themebreak(file_path)
+	Rpz_blankline(file_path)
+	Rpz_bulletlist(file_path, "bulletlist")
+	Rpz_orderedlist(file_path, "orderedlist")
+	Rpz_paragraph(file_path, "paragraph")
 
 }
 
-func ShowBlock2(lines []lexemes.Block) {
-	Import_style()
+func ShowBlock2(output_file_path string, lines []lexemes.Block) {
+	Import_style(output_file_path)
 	last := lexemes.Block{
 		Genre:   "First",
 		Caracts: lexemes.BlockInfos{IsRaw: false, IsTerminal: true, Errors: 0, ErrorsMsg: "", TitleLevel: 2, Language: ""},
@@ -303,61 +304,61 @@ func ShowBlock2(lines []lexemes.Block) {
 		if is_fency_open {
 			if block.Genre == "FencedCode" {
 				is_fency_open = false
-				writecloser(findcloser(block))
+				writecloser(output_file_path, findcloser(block))
 				continue
 			}
-			Rpz_fencedcode(block.Text)
+			Rpz_fencedcode(output_file_path, block.Text)
 			continue
 		}
 
 		if last.Genre == block.Genre {
 			if block.Genre == "Quote" {
-				Rpz_unopened_quote(block.Text)
+				Rpz_unopened_quote(output_file_path, block.Text)
 				continue
 			}
 			if block.Genre == "Paragraph" {
-				Rpz_paragraph(block.Text)
+				Rpz_paragraph(output_file_path, block.Text)
 				continue
 			}
 		}
 
-		writecloser(findcloser(last))
+		writecloser(output_file_path, findcloser(last))
 
 		switch block.Genre {
 		case "Title":
-			Rpz_title(block.Text, block.Caracts.TitleLevel)
+			Rpz_title(output_file_path, block.Text, block.Caracts.TitleLevel)
 		case "BlankLine":
 			last = block
 			continue
 		case "ThemeBreak":
-			Rpz_themebreak()
+			Rpz_themebreak(output_file_path)
 		case "FencedCode":
 			if is_fency_open {
 				is_fency_open = false
 			} else {
-				writecloser(findcloser(block))
-				Rpz_fencedcode_language(block.Text)
+				writecloser(output_file_path, findcloser(block))
+				Rpz_fencedcode_language(output_file_path, block.Text)
 				is_fency_open = true
 				continue
 			}
 		case "IndentCode":
-			Rpz_intentedcode(block.Text)
+			Rpz_intentedcode(output_file_path, block.Text)
 		case "Quote":
-			Rpz_quote(block.Text)
+			Rpz_quote(output_file_path, block.Text)
 		case "OrderedList":
-			Rpz_orderedlist(block.Text)
+			Rpz_orderedlist(output_file_path, block.Text)
 		case "BulletList":
-			Rpz_bulletlist(block.Text)
+			Rpz_bulletlist(output_file_path, block.Text)
 		case "Paragraph":
-			Rpz_paragraph(block.Text)
+			Rpz_paragraph(output_file_path, block.Text)
 		default:
 		}
 		last = block
 	}
 }
 
-func Import_style() {
-	file, err := os.OpenFile("test.html", os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0600)
+func Import_style(file_path string) {
+	file, err := os.OpenFile(file_path, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0600)
 	if err != nil {
 		panic(err)
 	}

@@ -4,11 +4,32 @@ import (
 	"bufio"
 	"log"
 	"os"
+	"os/exec"
+	"runtime"
 
 	"github.com/Pallandos/Compidown/pkg/lexemes"
 	"github.com/Pallandos/Compidown/pkg/lexer"
 	"github.com/Pallandos/Compidown/pkg/parser"
+	html_rpz "github.com/Pallandos/Compidown/pkg/showing"
 )
+
+func openBrowser(url string) {
+	var cmd string
+	var args []string
+
+	switch runtime.GOOS {
+	case "linux":
+		cmd = "xdg-open"
+	case "windows":
+		cmd = "rundll32"
+		args = append(args, "url.dll,FileProtocolHandler")
+	case "darwin":
+		cmd = "open"
+	}
+
+	args = append(args, url)
+	exec.Command(cmd, args...).Start()
+}
 
 func main() {
 	// argumments
@@ -49,7 +70,10 @@ func main() {
 	// affichage
 	//fmt.Println(lexeme_list)
 	ast := parser.Parse(lexeme_list)
-	// html_rpz.ShowBlock(lexeme_list)
+	output_file_path := "../output.html"
+	html_rpz.ShowBlock2(output_file_path, lexeme_list)
 	//html_rpz.Showtext(inlines)
 	ast.Print()
+
+	openBrowser("../output.html")
 }

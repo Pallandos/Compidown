@@ -14,7 +14,7 @@ La syntaxe de l'outil est :
 
     ./compidown <path_to_source>
 
-Lors de l'exécution de cette commande, le programme va chercher le fichier source donné et le compiler en html // sortie ?? //. Un dossier `/out` sera créé avec l'affichage de l'AST.
+Lors de l'exécution de cette commande, le programme va chercher le fichier source donné et le compiler en html avant de l'afficher dans un navigateur. Un dossier `/out` sera créé avec l'affichage de l'AST. La page html de sortie sera quand à elle stockée à la racine du projet sous le nom `output.html`
 
 ### Pourquoi Go
 
