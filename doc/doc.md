@@ -265,7 +265,7 @@ Document:
 
 ## Traducteur 
 
-Le traducteur en page html se basant sur les lexèmes transformés en blocs correspond au fichier `html_rpz.go`. On parcourt l'ensemble des blocs qui contiennent contenus dans la liste de lexèmes et pour chacun d'entre eux on appelle une fonction de représentation. Ces fonctions écrivent dnas le fichier `output.html` le code html correspondant à la représentation du fichier source markdown en html. La correspondance des deux langages provient de la documentation du *GitHub flavored Markdown*. 
+Le traducteur en page html se basant sur les lexèmes transformés en blocs correspond au fichier `html_rpz.go`. On parcourt l'ensemble des blocs contenus dans la liste de lexèmes et pour chacun d'entre eux on appelle une fonction de représentation. Ces fonctions écrivent dans le fichier `output.html` le code html correspondant à la représentation du fichier source markdown en html. La correspondance des deux langages provient de la documentation du *GitHub flavored Markdown*. 
 
 Pour chaque block dont la variable `IsRaw` est false on parse l'intérieur et appelle la fonction de représentation correspondante. Afin de gérer les différentes balises imbriquées les unes dans les autres, chaque ligne du inline est responsable, en fonction de son genre et de celui de la précédente ligne, de fermer ou non la prédente balise et d'ouvrir ou non la sienne.
 

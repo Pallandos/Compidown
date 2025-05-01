@@ -1,25 +1,23 @@
 Document: 
-    Paragraph: this is an example
+    Title:  CSN Solide
     BlankLine: 
-    Paragraph: re
+    Title:  Chapitre 1
     BlankLine: 
-    Title:  titreeeeee
+    Paragraph: Il était une fois un *CSN* devant son écran. 
     BlankLine: 
-    Quote: 
-        Quote: wtf
-        Quote:  etet
-    BlankLine: 
-    Paragraph: fiex
-    BlankLine: 
-    IndentCode: code indenté
+    Paragraph: Celui ci ne savait pas quoi faire, il avait 2 options : 
     BlankLine: 
     BulletList: 
-        BulletList: - liste
-        BulletList: - listeee
-    Paragraph: finex
+        BulletList: - travailler son projet à rendre demain
+        BulletList: - apprendre un langage inconnu et probablement inutile
     BlankLine: 
-    FencedCode: py
+    Paragraph: Son choix fait, il **écrivit** :
+    BlankLine: 
+    FencedCode: sh
         RawText: 
-        RawText: bon
+        RawText: sudo apt install go
         RawText: 
-    Paragraph: yeahhhhh
+    BlankLine: 
+    Title:  Chapitre 2
+    BlankLine: 
+    Paragraph: FIN ...

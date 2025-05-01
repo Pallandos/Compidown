@@ -1,7 +1,6 @@
 package html_rpz
 
 import (
-	"fmt"
 	"os"
 	"strconv"
 	"strings"
@@ -122,8 +121,8 @@ func Rpz_quote(file_path string, line string) {
 			lastSpaceIndex := strings.LastIndex(inline.Text, " ")
 			beforeLastSpace := inline.Text[:lastSpaceIndex]  // Substring before the last space
 			afterLastSpace := inline.Text[lastSpaceIndex+1:] // Substring after the last space
-			fmt.Println(beforeLastSpace)
-			fmt.Println(afterLastSpace)
+			// fmt.Println(beforeLastSpace)
+			// fmt.Println(afterLastSpace)
 			file.WriteString("<a href='" + afterLastSpace + "'>" + beforeLastSpace + "</a>")
 		}
 		if inline.Genre == "Image" {
@@ -139,7 +138,7 @@ func Rpz_unopened_quote(file_path string, line string) {
 	}
 	defer file.Close() // on ferme automatiquement à la fin de notre programme
 	for _, inline := range lexer.LexerInline(line) {
-		fmt.Println(inline)
+		// fmt.Println(inline)
 		if inline.Genre == "Bold" {
 			Rpz_bold(inline.Text, file)
 		}
@@ -153,8 +152,8 @@ func Rpz_unopened_quote(file_path string, line string) {
 			lastSpaceIndex := strings.LastIndex(inline.Text, " ")
 			beforeLastSpace := inline.Text[:lastSpaceIndex]  // Substring before the last space
 			afterLastSpace := inline.Text[lastSpaceIndex+1:] // Substring after the last space
-			fmt.Println(beforeLastSpace)
-			fmt.Println(afterLastSpace)
+			// fmt.Println(beforeLastSpace)
+			// fmt.Println(afterLastSpace)
 			file.WriteString("<a href='" + afterLastSpace + "'>" + beforeLastSpace + "</a>")
 		}
 		if inline.Genre == "Image" {
@@ -170,7 +169,7 @@ func Rpz_orderedlist(file_path string, line string) {
 	}
 	defer file.Close() // on ferme automatiquement à la fin de notre programme
 	for _, inline := range lexer.LexerInline(line) {
-		fmt.Println(inline)
+		// fmt.Println(inline)
 		if inline.Genre == "Bold" {
 			Rpz_bold(inline.Text, file)
 		}
@@ -184,8 +183,8 @@ func Rpz_orderedlist(file_path string, line string) {
 			lastSpaceIndex := strings.LastIndex(inline.Text, " ")
 			beforeLastSpace := inline.Text[:lastSpaceIndex]  // Substring before the last space
 			afterLastSpace := inline.Text[lastSpaceIndex+1:] // Substring after the last space
-			fmt.Println(beforeLastSpace)
-			fmt.Println(afterLastSpace)
+			// fmt.Println(beforeLastSpace)
+			// fmt.Println(afterLastSpace)
 			file.WriteString("<a href='" + afterLastSpace + "'>" + beforeLastSpace + "</a>")
 		}
 		if inline.Genre == "Image" {
@@ -205,7 +204,7 @@ func Rpz_bulletlist(file_path string, line string) {
 		panic(err)
 	}
 	for _, inline := range lexer.LexerInline(line[2:]) {
-		fmt.Println(inline)
+		// fmt.Println(inline)
 		if inline.Genre == "Bold" {
 			Rpz_bold(inline.Text, file)
 		}
@@ -219,8 +218,8 @@ func Rpz_bulletlist(file_path string, line string) {
 			lastSpaceIndex := strings.LastIndex(inline.Text, " ")
 			beforeLastSpace := inline.Text[:lastSpaceIndex]  // Substring before the last space
 			afterLastSpace := inline.Text[lastSpaceIndex+1:] // Substring after the last space
-			fmt.Println(beforeLastSpace)
-			fmt.Println(afterLastSpace)
+			// fmt.Println(beforeLastSpace)
+			// fmt.Println(afterLastSpace)
 			file.WriteString("<a href='" + afterLastSpace + "'>" + beforeLastSpace + "</a>")
 		}
 		if inline.Genre == "Image" {
@@ -248,7 +247,7 @@ func Rpz_paragraph(file_path string, line string) {
 		panic(err)
 	}
 	for _, inline := range lexer.LexerInline(line) {
-		fmt.Println(inline)
+		// fmt.Println(inline)
 		if inline.Genre == "Bold" {
 			Rpz_bold(inline.Text, file)
 		}
@@ -262,8 +261,8 @@ func Rpz_paragraph(file_path string, line string) {
 			lastSpaceIndex := strings.LastIndex(inline.Text, " ")
 			beforeLastSpace := inline.Text[:lastSpaceIndex]  // Substring before the last space
 			afterLastSpace := inline.Text[lastSpaceIndex+1:] // Substring after the last space
-			fmt.Println(beforeLastSpace)
-			fmt.Println(afterLastSpace)
+			// fmt.Println(beforeLastSpace)
+			// fmt.Println(afterLastSpace)
 			file.WriteString("<a href='" + afterLastSpace + "'>" + beforeLastSpace + "</a>")
 		}
 		if inline.Genre == "Image" {

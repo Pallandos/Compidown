@@ -10,9 +10,22 @@ La grammaire que j'ai utilisée pour mon projet est lisible [ici](./doc/grammair
 
 ## Usage 
 
+Le dossier `/bin` contient des binaires compilés pour plusieurs systèmes et architectures. Sinon, voir la documentation de Go pour compiler dans une autre architecture. 
+
+Il est possible de lancer avec la commande 
+
+    go run main.go <path_to_source>
+
+mais cela nécessite une installation locale de Go. 
+
 La syntaxe de l'outil est : 
 
-    ./compidown <path_to_source>
+    ./compidown <path_to_source> <options>
+
+Options : 
+
+- `--help` : affiche l'aide
+- `-jc` : compile sans ouvrir le navigateur
 
 Lors de l'exécution de cette commande, le programme va chercher le fichier source donné et le compiler en html avant de l'afficher dans un navigateur. Un dossier `/out` sera créé avec l'affichage de l'AST. La page html de sortie sera quand à elle stockée à la racine du projet sous le nom `output.html`
 

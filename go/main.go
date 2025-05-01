@@ -33,12 +33,34 @@ func openBrowser(url string) {
 
 func main() {
 	// argumments
+	var jc bool = false
 
 	if len(os.Args) < 2 {
-		log.Fatalf("Usage: %s <file_path>", os.Args[0])
+		log.Fatalf("Usage: %s <file_path> <options>", os.Args[0])
+	}
+
+	if len(os.Args) == 3 {
+		if os.Args[2] == "--help" {
+			log.Println("Usage: go run main.go <file_path> <options>")
+			log.Println("Options:")
+			log.Println("  --help : Affiche l'aide")
+			log.Println("  -jc : Compile sans ouvrir le navigateur")
+			return
+		} else if os.Args[2] == "-jc" {
+			jc = true
+		} else {
+			log.Fatalf("Option inconnue : %s", os.Args[2])
+		}
 	}
 
 	file_path := os.Args[1]
+	if file_path == "--help" {
+		log.Println("Usage: go run main.go <file_path> <options>")
+		log.Println("Options:")
+		log.Println("  --help : Affiche l'aide")
+		log.Println("  -jc : Compile sans ouvrir le navigateur")
+		return
+	}
 	lexeme_list := []lexemes.Block{}
 
 	// ouverture
@@ -72,5 +94,10 @@ func main() {
 	html_rpz.ShowBlock2(output_file_path, lexeme_list)
 	ast.Print()
 
-	openBrowser("../output.html")
+	if !jc {
+		// ouverture du navigateur
+		openBrowser(output_file_path)
+	} else {
+		log.Println("Compilation terminée, fichier de sortie : " + output_file_path)
+	}
 }

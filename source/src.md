@@ -1,23 +1,22 @@
-this is an example
+# CSN Solide
 
-re
+## Chapitre 1
 
-### titreeeeee
+Il était une fois un *CSN* devant son écran. 
 
->wtf
-> etet
+Celui ci ne savait pas quoi faire, il avait 2 options : 
 
-fiex
+- travailler son projet à rendre demain
+- apprendre un langage inconnu et probablement inutile
 
-    code indenté
+Son choix fait, il **écrivit** :
 
-- liste
-- listeee
-finex
+```sh
 
-```py
-
-bon
+sudo apt install go
 
 ```
-yeahhhhh
+
+## Chapitre 2
+
+FIN ...
